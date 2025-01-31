@@ -35,12 +35,12 @@ Layihədə istifadə olunan məlumat aşağıdakı sütunları əhatə edir:
 Layihədə istifadə olunan verilənlər və kodları əldə etmək üçün bu repositoriyanı klonlaya bilərsiniz:
 
 ```bash
-git clone https://github.com/your-repo/apartment-price-prediction.git
+gh repo clone RiyadAhmadov/bina-az-apartment-price-prediction
 ```
 
 ## 💡 Daha ətraflı məlumat
 Daha ətraflı məlumat üçün layihə sənədlərinə baxın və ya bizimlə əlaqə saxlayın.
 
 ---
-**🔗 Müəllif:** [Sizin Adınız](https://github.com/your-profile)  
-**📧 Əlaqə:** your.email@example.com
+**🔗 Müəllif:** [Riyad Ahmadov](https://github.com/RiyadAhmadov)  
+**📧 Əlaqə:** riyadehmedov03@gmail.com
