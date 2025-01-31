@@ -4,8 +4,8 @@ import pandas as pd
 import base64
 import io
 
-st.sidebar.image(r"C:\Users\HP\OneDrive\İş masası\Streamlit\LOGO WHITE.png", use_container_width = True, width = 5)
-data = pd.read_excel(r'C:\Users\HP\OneDrive\İş masası\Streamlit\combined_output.xlsx')
+st.sidebar.image("LOGO WHITE.png", use_container_width = True, width = 5)
+data = pd.read_excel('combined_output.xlsx')
 
 st.title("🏠 Mənzillərin Qiymət Proqnozlaşdırılması Layihəsi")
 st.subheader("📋 Layihə Haqqında")
