@@ -3,12 +3,12 @@ import plotly.graph_objects as go
 import pandas as pd
 import plotly.express as px
 
-df = pd.read_excel(r'C:\Users\HP\OneDrive\İş masası\Streamlit\combined_visual.xlsx')
+df = pd.read_excel('combined_visual.xlsx')
 
 for i in ['ipoteka','kupçalı','təmirli','yeni_tikili']:
     df[i] = df[i].apply(lambda x: 'Bəli' if int(x) == 1 else 'Xeyr')
 
-st.sidebar.image(r"C:\Users\HP\OneDrive\İş masası\Streamlit\LOGO WHITE.png", use_container_width = True, width = 10000)
+st.sidebar.image("LOGO WHITE.png", use_container_width = True, width = 10000)
 
 st.sidebar.title("Filtrlər")
 
