@@ -571,6 +571,7 @@ result['Qiymət Fərqi'] = result['Qiymət Fərqi'].apply(lambda x: str(round(x,
 result = result.sort_values(by = 'Qiymət Nisbəti', ascending = False)
 result
 
+
 st.write(f""">Cədvəldən görünür ki, yerlər üzrə <strong style='color: green;'>{result[result['Qiymət Nisbəti'] == 
 result['Qiymət Nisbəti'].max()]['Yer'].iloc[0]}</strong> <strong style='color: green;'>({result['Qiymət Nisbəti'].max()}x)</strong> yerləşən mənzillərin 
 yeni/köhnə qiymət fərqlərində ciddi fərq var. Minimum fərq isə <strong style='color: green;'>{result[result['Qiymət Nisbəti'] == 
@@ -680,13 +681,9 @@ st.write(f""">Qrafikdən görünür ki, yeni tikili evlər üzrə daha yüksək 
 st.header('Yerlər üzrə Xəritə Üzərində Analiz 🏚️')
 st.subheader('Elan Sayına görə Yerlərin Sıxlığı: 📢')
 
-long_lat = pd.read_excel('Azerbaijan_Locations_Lat_Long.xlsx')
-
-df = df.merge(long_lat, on = 'yer', how = 'left')
-
 df_group = df.groupby('yer').agg(
-    Latitude=('Latitude', 'first'),  
-    Longitude=('Longitude', 'first'), 
+    Latitude=('lat', 'first'),  
+    Longitude=('long', 'first'), 
     Elan_Sayı=('yer', 'count') 
 ).reset_index()
 
@@ -721,8 +718,8 @@ map_graph('Elan_Sayı',"Yerlər üzrə Elan Sayları")
 st.subheader('Ortalama Evlərin Qiymətinə görə Yerlərin Göstəriciləri: 💲')
 
 df_group = df.groupby('yer').agg(
-    Latitude=('Latitude', 'first'),  
-    Longitude=('Longitude', 'first'), 
+    Latitude=('lat', 'first'),  
+    Longitude=('long', 'first'), 
     Ortalama_Məbləğ=('qiymət', 'mean') 
 ).reset_index()
 
@@ -733,7 +730,7 @@ map_graph('Ortalama_Məbləğ',"Yerlər üzrə Ortalama Məbləğlər")
 
 st.subheader('Yeni Tikililərin Faizinə görə Yerlərin Göstəriciləri: 🏬')
 grouped_data_yer_tikili.rename(columns = {'Yer':'yer'}, inplace = True)
-grouped_data_yer_tikili = grouped_data_yer_tikili.merge(long_lat, on = 'yer', how = 'left')
+grouped_data_yer_tikili = grouped_data_yer_tikili.merge(df_group[['yer','Latitude','Longitude']], on = 'yer', how = 'left')
 df_group = grouped_data_yer_tikili
 map_graph('Yeni tikili Faizi',"Yerlər üzrə Yeni tikililərin Faizi")
 
@@ -742,10 +739,9 @@ map_graph('Yeni tikili Faizi',"Yerlər üzrə Yeni tikililərin Faizi")
 st.subheader('Yeni / Köhnə Tikililərin Yerlər Üzrə Evlərin Ortalama Qiymətinin Nisbəti: 📍🏚️')
 
 result.rename(columns = {'Yer':'yer'}, inplace = True)
-
-result = result.merge(long_lat, on = 'yer', how = 'left')
-
+result = result.merge(df_group[['yer','Latitude','Longitude']], on = 'yer', how = 'left')
 df_group = result
+
 map_graph('Qiymət Nisbəti',"Yeni Tikililərin Ortalama Qiymətlərinin Köhnə Tikililərə Olan Nisbəti")
 
 import streamlit as st
