@@ -10,6 +10,11 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (compatible; MyApp/1.0; +http://yourdomain.com)',
+    'Accept-Language': 'az'
+}
+
 st.set_page_config(page_title="Model Prediction", layout="centered")
 
 st.markdown("<h1 style='color: #FFFFFF; font-weight: bold;'>🏠 Qiymət Proqnozlaşdırılması</h1>", unsafe_allow_html=True)
