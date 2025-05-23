@@ -51,26 +51,24 @@ def send_email(email_to, app_password, subject, body):
         st.error(f"Error sending email: {e}")
         return False
 
-API_KEY = "09797f252efa4101aad7bdf4e2c82806"
+API_KEY = "a59296aa2ba2056be05861e2fe8a5b2a"
 
 def get_address_in_az(lat, lon):
-    headers = {"User-Agent": "StreamlitApp/1.0"}
-    url = "https://api.opencagedata.com/geocode/v1/json"
+    url = "http://api.positionstack.com/v1/reverse"
     params = {
-        "key": API_KEY,
-        "q": f"{lat},{lon}",
-        "language": "az",
-        "pretty": 1,
-        "no_annotations": 1
+        "access_key": API_KEY,
+        "query": f"{lat},{lon}",
+        "limit": 1,
+        "language": "az"
     }
-    response = requests.get(url, headers=headers, params=params)
+    response = requests.get(url, params=params)
     if response.status_code == 200:
         data = response.json()
-        if data['results']:
-            return data['results'][0]['formatted']
+        if data["data"]:
+            return data["data"][0]
         else:
-            return "Address not found"
-    return f"Error: {response.status_code}"
+            return None
+    return None
 
 with st.form("name_surname"):
     global name, surname
