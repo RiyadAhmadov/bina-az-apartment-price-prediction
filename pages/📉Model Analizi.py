@@ -51,6 +51,8 @@ def send_email(email_to, app_password, subject, body):
         st.error(f"Error sending email: {e}")
         return False
 
+import requests
+
 API_KEY = "a59296aa2ba2056be05861e2fe8a5b2a"
 
 def get_address_in_az(lat, lon):
@@ -62,13 +64,19 @@ def get_address_in_az(lat, lon):
         "language": "az"
     }
     response = requests.get(url, params=params)
+    
     if response.status_code == 200:
         data = response.json()
-        if data["data"]:
+        print("Full API response:", data)  # DEBUG üçün
+        if data.get("data"):
             return data["data"][0]
         else:
+            print("Boş data gəldi.")
             return None
-    return None
+    else:
+        print("Error status code:", response.status_code)
+        return None
+
 
 with st.form("name_surname"):
     global name, surname
