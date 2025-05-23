@@ -51,6 +51,8 @@ def send_email(email_to, app_password, subject, body):
         st.error(f"Error sending email: {e}")
         return False
 
+API_KEY = "09797f252efa4101aad7bdf4e2c82806"
+
 def get_address_in_az(lat, lon):
     headers = {"User-Agent": "StreamlitApp/1.0"}
     url = "https://api.opencagedata.com/geocode/v1/json"
