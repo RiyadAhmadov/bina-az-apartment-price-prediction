@@ -53,11 +53,21 @@ def send_email(email_to, app_password, subject, body):
 
 def get_address_in_az(lat, lon):
     headers = {"User-Agent": "StreamlitApp/1.0"}
-    url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={lat}&lon={lon}&accept-language=az"
-    response = requests.get(url, headers=headers)
+    url = "https://api.opencagedata.com/geocode/v1/json"
+    params = {
+        "key": API_KEY,
+        "q": f"{lat},{lon}",
+        "language": "az",
+        "pretty": 1,
+        "no_annotations": 1
+    }
+    response = requests.get(url, headers=headers, params=params)
     if response.status_code == 200:
         data = response.json()
-        return data.get("display_name", "Address not found")
+        if data['results']:
+            return data['results'][0]['formatted']
+        else:
+            return "Address not found"
     return f"Error: {response.status_code}"
 
 with st.form("name_surname"):
