@@ -51,32 +51,58 @@ def send_email(email_to, app_password, subject, body):
         st.error(f"Error sending email: {e}")
         return False
 
-import requests
-
-API_KEY = "a59296aa2ba2056be05861e2fe8a5b2a"
-
 def get_address_in_az(lat, lon):
-    url = "http://api.positionstack.com/v1/reverse"
-    params = {
-        "access_key": API_KEY,
-        "query": f"{lat},{lon}",
-        "limit": 1,
-        "language": "az"
-    }
-    response = requests.get(url, params=params)
-    
+    headers = {"User-Agent": "StreamlitApp/1.0"}
+    url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={lat}&lon={lon}&accept-language=az"
+    response = requests.get(url, headers=headers)
     if response.status_code == 200:
         data = response.json()
-        print("Full API response:", data)  # DEBUG üçün
-        if data.get("data"):
-            return data["data"][0]
-        else:
-            print("Boş data gəldi.")
-            return None
-    else:
-        print("Error status code:", response.status_code)
-        return None
+        return data.get("display_name", "Address not found")
+    return f"Error: {response.status_code}"
 
+# def get_address_in_az(lat, lon):
+#     url = "http://api.positionstack.com/v1/reverse"
+#     params = {
+#         "access_key": API_KEY,
+#         "query": f"{lat},{lon}",
+#         "limit": 1,
+#         "language": "az"
+#     }
+#     response = requests.get(url, params=params)
+#     if response.status_code == 200:
+#         data = response.json()
+#         if data["data"]:
+#             return data["data"][0]
+#         else:
+#             return None
+#     return None
+
+
+
+
+# API_KEY = "a59296aa2ba2056be05861e2fe8a5b2a"
+
+# def get_address_in_az(lat, lon):
+#     url = "http://api.positionstack.com/v1/reverse"
+#     params = {
+#         "access_key": API_KEY,
+#         "query": f"{lat},{lon}",
+#         "limit": 1,
+#         "language": "az"
+#     }
+#     response = requests.get(url, params=params)
+    
+#     if response.status_code == 200:
+#         data = response.json()
+#         print("Full API response:", data)  # DEBUG üçün
+#         if data.get("data"):
+#             return data["data"][0]
+#         else:
+#             print("Boş data gəldi.")
+#             return None
+#     else:
+#         print("Error status code:", response.status_code)
+#         return None
 
 with st.form("name_surname"):
     global name, surname
